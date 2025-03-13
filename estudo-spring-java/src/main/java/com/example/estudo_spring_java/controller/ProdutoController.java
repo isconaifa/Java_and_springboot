@@ -2,9 +2,11 @@ package com.example.estudo_spring_java.controller;
 
 import java.util.List;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.estudo_spring_java.model.Produto;
 import com.example.estudo_spring_java.service.ProdutoService;
 
@@ -20,7 +22,6 @@ public class ProdutoController {
 
     private final ProdutoService produtoService;
 
-
     public ProdutoController(ProdutoService produtoService) {
         this.produtoService = produtoService;
     }
@@ -31,10 +32,9 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> buscarProduto(@PathVariable Long id) {
-        return produtoService.buscarProdutoId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> buscarProduto(@PathVariable Long id) {
+            Produto produto = produtoService.buscarProdutoId(id);
+            return ResponseEntity.ok(produto);
     }
 
     @PostMapping()
