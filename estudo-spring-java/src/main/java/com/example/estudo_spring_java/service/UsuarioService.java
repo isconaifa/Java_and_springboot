@@ -1,4 +1,6 @@
 package com.example.estudo_spring_java.service;
+import java.util.Optional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import com.example.estudo_spring_java.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
+
 
 
     private final UsuarioRepository usuarioRepository;
@@ -22,5 +25,9 @@ public class UsuarioService {
        String senhaCriptografada = passwordEncoder.encode(password);
        Usuario usuario = new Usuario(username, senhaCriptografada);
        return usuarioRepository.save(usuario);
+    }
+
+    public Optional<Usuario> buscarPorUsername(String username){
+        return usuarioRepository.findByUsername(username);
     }
 }
